@@ -1,7 +1,6 @@
 {
 	"name": "@nxgt/units",
 	"version": "0.0.0",
-	"private": true,
 	"description": "Units of measure without I/O: families with a linear factor, per-item conversion tables, decimal-safe rounding and frozen quantities",
 	"license": "MIT",
 	"type": "module",
