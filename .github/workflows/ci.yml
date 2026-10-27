@@ -1,0 +1,45 @@
+name: CI
+
+on:
+  pull_request:
+    # `feat/**` too: slices of an effort merge into their integration branch.
+    branches: [develop, main, "feat/**"]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  ci:
+    name: CI
+    # GitHub-hosted: no service is needed, the packages are pure.
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          # `changeset status --since=origin/develop` needs the base branch.
+          fetch-depth: 0
+      - name: Setup
+        uses: ./.github/actions/setup
+      - name: Lint code
+        run: bunx biome ci
+      # Build FIRST: every `exports` points at `dist/`, so typecheck on a
+      # clean checkout would report phantom TS2307s for a sibling import.
+      - name: Build packages
+        run: bun run build
+      - name: Type checking
+        run: bun run typecheck
+      - name: Run tests
+        run: bun run test
+      # Packs the packages, installs them as a consumer does and imports
+      # every declared subpath.
+      - name: Verify the built artifacts load
+        run: bun run verify:artifacts
+      # Not on the release branch: "Version packages" consumes the changesets.
+      - name: Changeset present
+        if: >-
+          github.event_name == 'pull_request' &&
+          github.head_ref != 'changeset-release/develop'
+        run: bun run changeset:status
