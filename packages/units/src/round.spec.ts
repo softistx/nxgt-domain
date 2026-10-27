@@ -36,6 +36,11 @@ describe('round', () => {
 		expect(round(1.5e21, 2)).toBe(1.5e21);
 	});
 
+	test('returns a value too large to scale unchanged', () => {
+		expect(round(1.7e308, 2)).toBe(1.7e308);
+		expect(round(-1.7e308, 2)).toBe(-1.7e308);
+	});
+
 	test('refuses a bad value or bad decimals', () => {
 		for (const bad of [Number.NaN, Number.POSITIVE_INFINITY]) {
 			expect(() => round(bad, 2)).toThrow(UnitsError);

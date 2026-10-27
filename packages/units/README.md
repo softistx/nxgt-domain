@@ -13,8 +13,8 @@ frozen and its value in the item's base unit. Rounding is decimal-safe:
 bun add @nxgt/units
 ```
 
-Requires TypeScript with `"moduleResolution": "bundler"`; `nodenext` is not
-supported. ESM only, no dependency.
+Peer: `typescript` `^6.0.3 || ^7.0.0`, with `"moduleResolution": "bundler"`;
+`nodenext` is not supported. ESM only, no dependency.
 
 ## Units and conversion
 

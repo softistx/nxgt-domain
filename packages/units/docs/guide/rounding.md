@@ -26,7 +26,7 @@ assertDecimals(2.5, 1); // 2.5
 ```
 
 `resolveQuantity` calls `assertDecimals` with the entry unit's `decimals`; give
-it `{ finer: 'round' }` to round instead:
+it `{ finer: 'round' }` (a `ResolveOptions`; the default is `'refuse'`) to round instead. The second argument is a `ResolveContext`: `{ base, units, conversions? }`:
 
 ```ts
 resolveQuantity({ quantity: 1.5, unitId: 'g' }, context, { finer: 'round' });

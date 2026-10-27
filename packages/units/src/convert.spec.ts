@@ -29,4 +29,19 @@ describe('convert', () => {
 			expect((error as UnitsError).code).toBe('no-conversion-path');
 		}
 	});
+
+	test('refuses a unit whose factor is not positive', () => {
+		const zero: Unit = { id: 'zero', family: 'mass', factor: 0, decimals: 0 };
+		for (const [from, to] of [
+			[g, zero],
+			[zero, g],
+		] as const) {
+			try {
+				convert(1, from, to);
+				throw new Error('did not throw');
+			} catch (error) {
+				expect((error as UnitsError).code).toBe('invalid-factor');
+			}
+		}
+	});
 });

@@ -48,6 +48,16 @@ describe('factorToBase', () => {
 		expect(factorToBase('ml', { base: 'kg', units, conversions })).toBe(0.0009);
 	});
 
+	test('refuses a unit declared with a zero factor', () => {
+		const zero: Unit = { id: 'zero', family: 'mass', factor: 0, decimals: 0 };
+		expect(
+			code(() => factorToBase('zero', { base: 'kg', units: [...units, zero] })),
+		).toBe('invalid-factor');
+		expect(
+			code(() => factorToBase('g', { base: 'zero', units: [...units, zero] })),
+		).toBe('invalid-factor');
+	});
+
 	test('names what is missing', () => {
 		expect(code(() => factorToBase('lb', { base: 'kg', units }))).toBe(
 			'unknown-unit',

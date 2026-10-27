@@ -1,4 +1,5 @@
 import { UnitsError } from './errors';
+import { checkFactor } from './resolve';
 import { round } from './round';
 import type { Unit } from './types';
 
@@ -10,5 +11,7 @@ export function convert(value: number, from: Unit, to: Unit): number {
 			`${from.id} (${from.family}) cannot become ${to.id} (${to.family}) without an item conversion`,
 		);
 	}
+	checkFactor(from.factor, from.id);
+	checkFactor(to.factor, to.id);
 	return round((value * from.factor) / to.factor, to.decimals);
 }

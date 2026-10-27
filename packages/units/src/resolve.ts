@@ -26,7 +26,7 @@ function find(units: readonly Unit[], id: string): Unit {
 	return unit;
 }
 
-function checkFactor(factor: number, unitId: string): number {
+export function checkFactor(factor: number, unitId: string): number {
 	if (!Number.isFinite(factor) || factor <= 0) {
 		throw new UnitsError(
 			'invalid-factor',
@@ -51,6 +51,8 @@ export function factorToBase(unitId: string, context: ResolveContext): number {
 	const { units, conversions = [] } = context;
 	const base = find(units, context.base);
 	const unit = find(units, unitId);
+	checkFactor(base.factor, base.id);
+	checkFactor(unit.factor, unit.id);
 	if (unit.id === base.id) return 1;
 
 	const own = conversions.find((entry) => entry.unitId === unit.id);
@@ -61,6 +63,7 @@ export function factorToBase(unitId: string, context: ResolveContext): number {
 	for (const entry of conversions) {
 		const via = units.find((one) => one.id === entry.unitId);
 		if (via && via.family === unit.family) {
+			checkFactor(via.factor, via.id);
 			return clean(
 				(unit.factor / via.factor) * checkFactor(entry.factor, via.id),
 			);

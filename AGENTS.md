@@ -31,6 +31,7 @@ Every package starts `"private": true`; removing it is its own commit.
 - `scripts/verify-artifacts.ts` names its temp directory `nxgt-domain-verify-`.
 - Bun is pinned to 1.4.4 (`packageManager` and the setup action), nxgt-data is on 1.4.3.
 - `biome.json`'s `$schema` is 2.6.3, the Biome `bun.lock` resolves.
+- `biome.json` also ignores `.changeset/*.md`: Biome 2.6 formats Markdown and reads the frontmatter fence as a heading, which breaks every changeset.
 - No `docs/superpowers` folder.
 
 ## Rules

@@ -30,10 +30,10 @@ function checkFinite(value: number): void {
 export function round(value: number, decimals: number): number {
 	checkFinite(value);
 	checkDecimals(decimals);
-	const rounded = shift(
-		Math.round(shift(Math.abs(value), decimals)),
-		-decimals,
-	);
+	const scaled = shift(Math.abs(value), decimals);
+	// Too large to scale: it has no decimals to round away.
+	if (!Number.isFinite(scaled)) return value;
+	const rounded = shift(Math.round(scaled), -decimals);
 	return value < 0 && rounded !== 0 ? -rounded : rounded;
 }
 
