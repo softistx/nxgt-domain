@@ -5,8 +5,7 @@ item shipped in is the only number on this page.
 
 ## Now
 
-- **First release (0.1.0)** — types, `round`, `convert`, `factorToBase` and
-  `resolveQuantity`.
+_Nothing in progress._
 
 ## Next
 
@@ -25,4 +24,5 @@ _Nothing queued._
 
 ## Shipped
 
-_Nothing yet._
+- **First release** — types, `round`, `convert`, `factorToBase` and
+  `resolveQuantity` — 0.1.0.
