@@ -1,0 +1,57 @@
+{
+	"name": "@nxgt/units",
+	"version": "0.0.0",
+	"private": true,
+	"description": "Units of measure without I/O: families with a linear factor, per-item conversion tables, decimal-safe rounding and frozen quantities",
+	"license": "MIT",
+	"type": "module",
+	"main": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"files": [
+		"dist",
+		"docs",
+		"README.md",
+		"package.json",
+		"LICENSE"
+	],
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"import": "./dist/index.js",
+			"default": "./dist/index.js"
+		},
+		"./package.json": "./package.json"
+	},
+	"keywords": [
+		"units",
+		"unit-conversion",
+		"quantity",
+		"rounding",
+		"typescript"
+	],
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/softistx/nxgt-domain.git",
+		"directory": "packages/units"
+	},
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org",
+		"access": "public"
+	},
+	"scripts": {
+		"build": "bun run ../../build.ts",
+		"test": "bun test src",
+		"typecheck": "tsc --noEmit"
+	},
+	"nxgt": {
+		"entrypoints": [
+			"src/index.ts"
+		]
+	},
+	"devDependencies": {
+		"@types/bun": "^1.4.0"
+	},
+	"peerDependencies": {
+		"typescript": "^6.0.3 || ^7.0.0"
+	}
+}
